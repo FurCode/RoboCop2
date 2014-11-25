@@ -60,7 +60,8 @@ def googl(text):
 
 @hook.command
 def gitio(text):
-    """<url> [custom] - shortens a github URL <url> using git.io with [custom] as an optional custom shortlink, or unshortens <url> if already short"""
+    """<url> [custom] - shortens a github URL <url> using git.io with [custom] as an optional custom shortlink, or
+    unshortens <url> if already short"""
     args = text.split()
     url = args[0]
     custom = args[1] if len(args) > 1 else None

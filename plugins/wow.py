@@ -39,11 +39,13 @@ def armoury(inp):
     if re.match(r"^[^\d]$", charname) or len(charname) > 18:
         # May not contain digits, repeat the same letter three times, or contain non-word characters.
         # Special characters are permitted, such as áéíóßø.
-        return 'The character name is not a valid name. Character names can only contain letters, special characters, and be 18 characters long.'
+        return 'The character name is not a valid name. Character names can only contain letters, special characters,' \
+               ' and be 18 characters long.'
 
     if not re.match(r"^[a-z' _-]{3,32}$", realm):
         # Realm names can have spaces in them, use dashes for this.
-        return 'The realm name is not a valid name. Realm names can only contain letters, dashes, and apostrophes, up to 32 characters'
+        return 'The realm name is not a valid name. Realm names can only contain letters, dashes, and apostrophes,' \
+               ' up to 32 characters'
 
     region_short = wow_region_shortname(region)
 
@@ -88,7 +90,8 @@ def wow_armoury_format(data, link):
         niceurl = link.replace('/api/wow/', '/wow/en/') + '/simple'
 
         try:
-            return '{0} is a level \x0307{1}\x0F {2} {3} on {4} with \x0307{5}\x0F achievement points and \x0307{6}\x0F honourable kills. Armoury Profile: {7}' \
+            return '{} is a level \x0307{}\x0F {} {} on {} with \x0307{}\x0F achievement points and \x0307{}\x0F' \
+                   ' honourable kills. Armoury Profile: {}' \
                 .format(data['name'], data['level'], wow_get_gender(data['gender']), wow_get_class(data['class'], True),
                         data['realm'],
                         data['achievementPoints'], data['totalHonorableKills'], web.isgd(niceurl))

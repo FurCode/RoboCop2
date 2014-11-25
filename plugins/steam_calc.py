@@ -33,7 +33,8 @@ def unicode_dictreader(utf8_data, **kwargs):
 
 @hook.command(["steamcalc", "sc"])
 def steamcalc(text, reply):
-    """steamcalc <username> [currency] - Gets value of steam account and total hours played. Uses steamcommunity.com/id/<nickname>. """
+    """steamcalc <username> [currency] - Gets value of steam account and total hours played.
+    Uses steamcommunity.com/id/<nickname>. """
 
     # check if the user asked us to force reload
     force_reload = text.endswith(" forcereload")
