@@ -1,23 +1,23 @@
-# CloudBot Refresh
+# RoboCop
 
 ## About
 
-CloudBotRefresh is the newest generation of CloudBot, the fun, fast, extendable Python IRC bot!
+RoboCop is an IRC bot, designed for Python 3, which is based on RoboCop Classic, which in turn is based on Cloudbot (by Luke Rogers and the Cloudbot contributors), that is in turn based on Skybot. That's a big history.
 
-## Installing CloudBot
+## Getting and using RoboCop
+=======
+## Installing RoboCop
 
-Firstly, CloudBot will only run on **Python 3.4 or higher**. Because we use the asyncio module, you will not be able to use any other versions of Python. If you **really** want to run CloudBot on Python 2.x, you can find the old **unsupported** version of CloudBot at [this location](https://github.com/ClouDev/CloudBot).
+To install RoboCop 2 on *Unix, see [docs/installing-unix.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-unix.md)
 
-To install CloudBotRefresh on *nix (linux, etc), see [docs/installing-unix.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-unix.md)
+To install RoboCop 2 on Windows, see [docs/installing-windows.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-windows.md)
 
-To install CloudBotRefresh on Windows, see [docs/installing-windows.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-windows.md)
+If you're going to be actively developing on RoboCop 2, and submitting PRs back, we recommend running it inside Vagrant. This allows everyone to have an identical development environment.
 
-If you're going to be actively developing on CloudBotRefresh, and submitting PRs back, we recommend running CloudBotRefresh inside Vagrant. This allows everyone to have an identical development environment.
-
-To install CloudBotRefresh in Vagrant (both *Unix and Windows), see [docs/installing-vagrant.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-vagrant.md)
+To install RoboCop 2 in Vagrant (both *Unix and Windows), see [docs/installing-vagrant.md](https://github.com/CloudBotIRC/CloudBotRefresh/blob/python3.4/docs/installing-vagrant.md)
 
 
-### Running CloudBot
+### Running RoboCop 2
 
 Before you run the bot, rename `config.default` to `config.json` and edit it with your preferred settings. You can check if your JSON is valid using [jsonlint.com](http://jsonlint.com/)!
 
@@ -33,7 +33,7 @@ python3.4 CloudBotRefresh/cloudbot/__main__.py
 ```
 Specify the path as /path/to/repository/cloudbot/__main__.py, where `cloudbot` is inside the repository directory.
 
-## Getting help with CloudBot
+## Getting help with RoboCop
 
 ### Documentation
 
@@ -48,33 +48,40 @@ rewritten for refresh, but the other pages are outdated.
 
 ### Support
 
-The developers reside in [#CloudBot](irc://irc.esper.net/cloudbot) on [EsperNet](http://esper.net) and would be glad to help you.
+The developers reside in [#techsupport](irc://irc.snoonet.org/techsupport) and would be glad to help you.
 
+If you think you have found a bug/have a idea/suggestion, please **open a issue** here on Github.
+
+### Requirements
+
+CloudBot runs on **Python** *3.4.x*. It is currently developed on **Mac OS X** *10.10* with **Python** *2.3.4*.
+
+It **requires the Python module** lXML.
+The module `Enchant` is needed for the spellcheck plugin.
+The module `PyDNS` is needed for SRV record lookup in the mcping plugin.
+
+**Windows** users: Windows compatibility some plugins is **broken** (such as ping), but we do intend to add it. Eventually.
+=======
 If you think you have found a bug/have a idea/suggestion, please **open a issue** here on Github and contact us on IRC!
-
-## Example CloudBots
-
-You can find a number of example bots in [#CloudBot](irc://irc.esper.net/cloudbot "Connect via IRC to #CloudBot on irc.esper.net").
 
 ## License
 
-CloudBot is **licensed** under the **GPL v3** license. The terms are as follows.
+RoboCop is **licensed** under the **GPL v3** license. The terms are as follows.
 
-    CloudBot
+    RoboCop
 
-    Copyright © 2011-2015 Luke Rogers and CloudBot Contributors
+    Copyright © 2011-2014 Luke Rogers and CloudBot Contributors
+    Copyright © 2014 FurCode Team
 
-    CloudBot is free software: you can redistribute it and/or modify
+    RoboCop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    CloudBot is distributed in the hope that it will be useful,
+    RoboCop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with CloudBot.  If not, see <http://www.gnu.org/licenses/>.
-    
-![GPL V3](https://www.gnu.org/graphics/gplv3-127x51.png)
+    along with RoboCop.  If not, see <http://www.gnu.org/licenses/>.
