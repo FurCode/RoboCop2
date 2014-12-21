@@ -2,7 +2,7 @@ import sys
 
 # check python version
 if sys.version_info < (3, 4, 0):
-    print("CloudBot3 requires Python 3.4 or newer.")
+    print("RoboCop 2 requires Py3.4 or newer, use Classic RoboCop for Python 2.x")
     sys.exit(1)
 
 import json
@@ -10,7 +10,7 @@ import logging.config
 import logging
 import os
 
-__version__ = "0.1.1.dev0"
+__version__ = "2.0.0."
 
 __all__ = ["util", "bot", "connection", "config", "permissions", "plugin", "event", "hook", "dev_mode", "log_dir"]
 
