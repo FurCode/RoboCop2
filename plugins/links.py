@@ -12,8 +12,7 @@ linkre = re.compile(r'(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:co
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.'}
 
-@hook.regex(linkre)
-def linkmatcher(match):
+def linkfinder(link):
     blacklist = ["://youtube.com", "://youtu.be", "://www.youtube.com", "://reddit.com", "://www.reddit.com"];
     url = match.group(1)
 
@@ -31,7 +30,6 @@ def linkmatcher(match):
 
     for tag in meta1:
         descr += str(tag['content'])
-
     for tag in meta2:
         descr += str(tag['content'])
 
@@ -50,3 +48,13 @@ def linkmatcher(match):
             return "\x02 Link: \x02 {} - {}".format(title, description)
         except AttributeError:
             return unkmsg
+
+@hook.regex(linkre)
+def linkmatcher(match):
+    switch = bot.config.get("modular", {}).get("autolink")
+    if switch == "ON":
+        linkfinder(match)
+
+@hook.command
+def preview(text)
+    linkfinder(text)
