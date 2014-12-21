@@ -20,6 +20,11 @@ headers = {'User-Agent': 'CloudBot/dev 1.0 - CloudBot Refresh by lukeroge'}
 @hook.regex(reddit_re)
 def reddit_url(match):
     url = match.group(1)
+    
+    if "redd.it" in url:
+        response = request.get(url)
+        url = response.url
+        print(url)
     if not urllib.parse.urlparse(url).scheme:
         url = "http://" + url + "/.json"
 
