@@ -14,7 +14,7 @@ linkre = re.compile(r'(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:co
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.'}
 
 def linkfinder(link):
-    blacklist = ["://youtube.com", "://youtu.be", "://www.youtube.com", "://reddit.com", "://www.reddit.com"];
+    blacklist = ["://youtube.com", "://youtu.be", "://www.youtube.com", "://reddit.com", "://www.reddit.com", "://redd.it"];
     try:
         url = link.group(1)
     except AttributeError:
