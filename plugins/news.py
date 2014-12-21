@@ -4,8 +4,9 @@ from cloudbot import hook
 import feedparser
 import random
 
-@hook.command
-def news(text):	
+@hook.command(autohelp=False)
+def news(text):
+	"""news - prints a random headline from Google News"""
 	d = feedparser.parse('https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&output=rss')
 	counter = len(d['entries'])
 	counter = counter - 1
