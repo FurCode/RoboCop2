@@ -10,7 +10,7 @@ import logging.config
 import logging
 import os
 
-__version__ = "2.0.0."
+__version__ = "2.0.0-production"
 
 __all__ = ["util", "bot", "connection", "config", "permissions", "plugin", "event", "hook", "dev_mode", "log_dir"]
 
