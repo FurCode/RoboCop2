@@ -50,11 +50,11 @@ def linkfinder(link):
             return unkmsg
 
 @hook.regex(linkre)
-def linkmatcher(match):
+def linkmatcher(match, bot):
     switch = bot.config.get("modular", {}).get("autolink")
     if switch == "ON":
         linkfinder(match)
 
 @hook.command
-def preview(text)
+def preview(text):
     linkfinder(text)
