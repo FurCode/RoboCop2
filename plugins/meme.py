@@ -98,12 +98,18 @@ def meme_generator(meme, topString, bottomString):
     bottomTextPositionY = imageSize[1] - add
     bottomTextPosition = (bottomTextPositionX, bottomTextPositionY)
 
+    # Initialize the meme background
     ImageDraw.Draw(img)
 
+    # Initialize Image Layers for Compositing
+    # The Outline Mask layer, just gives the blurred "look" to the outline
     outline = Image.new('RGBA', img.size, (0, 0, 0, 0))
+    # Shadow_Matte is just a backplane for the blur mask in the outlines, it's just black
     shadow_matte = Image.new('RGB', img.size, (0,0,0))
+    # Text to draw on top of everything (the actual white text)
     top_text = Image.new('RGBA', img.size, (255, 255, 255, 0))
-    # Draw the text outlines
+
+    # Draw the bare text outlines to the outlines mask layer
     # There may be a better way (antialised)
     outlineRange = fontSize//15
     for x in range(-outlineRange, outlineRange+1):
@@ -111,25 +117,36 @@ def meme_generator(meme, topString, bottomString):
             ImageDraw.Draw(outline).text((topTextPosition[0]+x, topTextPosition[1]+y), topString, (0,0,0), font=font)
             ImageDraw.Draw(outline).text((bottomTextPosition[0]+x, bottomTextPosition[1]+y), bottomString, (0,0,0), font=font)
 
+    # Define the custom kernel
     kernel = [
         0, 1, 2, 1, 0,
         1, 2, 4, 2, 1,
         2, 4, 8, 4, 1,
         1, 2, 4, 2, 1,
         0, 1, 2, 1, 0]
+    # Create a PIL-friendly filter using the maths from the custom kernel
     custom_krnl = ImageFilter.Kernel((5, 5), kernel, scale = 0.3 * sum(kernel))
 
+    # Apply the custom kernel filter to the existing outline mask (adds the blur)
     blurred_outline = outline.filter(custom_krnl)
+
+    # Actually draw the changes by the filter
     ImageDraw.Draw(blurred_outline).text(topTextPosition, topString, font = font, fill = (0, 0, 0))
 
+    # Compositing time - Apply the blurred mask to the pure-black shadow matte, then superimpose it on the meme background
     img = Image.composite(img, shadow_matte, ImageChops.invert(blurred_outline))
+
+    # Draw the white text to be placed on top of the whole meme
     ImageDraw.Draw(top_text).text(topTextPosition, topString, (255,255,255), font=font)
     ImageDraw.Draw(top_text).text(bottomTextPosition, bottomString, (255,255,255), font=font)
 
+    # Compositing time - Add the white text, superimposing it over the black outline and the meme background
     img = Image.composite(img, top_text, ImageChops.invert(top_text))
 
+    # Initialize a variable to store our image
     image_meme = BytesIO()
 
+    # Save the completed composition to a PNG in memory
     img.save(image_meme, format="PNG")
     link = sendtoimgur(image_meme, meme)
     return link
