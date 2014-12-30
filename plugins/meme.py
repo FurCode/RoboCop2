@@ -111,7 +111,15 @@ def meme_generator(meme, topString, bottomString):
             ImageDraw.Draw(outline).text((topTextPosition[0]+x, topTextPosition[1]+y), topString, (0,0,0), font=font)
             ImageDraw.Draw(outline).text((bottomTextPosition[0]+x, bottomTextPosition[1]+y), bottomString, (0,0,0), font=font)
 
-    blurred_outline = outline.filter(ImageFilter.BLUR)
+    kernel = [
+        0, 1, 2, 1, 0,
+        1, 2, 4, 2, 1,
+        2, 4, 8, 4, 1,
+        1, 2, 4, 2, 1,
+        0, 1, 2, 1, 0]
+    custom_krnl = ImageFilter.Kernel((5, 5), kernel, scale = 0.3 * sum(kernel))
+
+    blurred_outline = outline.filter(custom_krnl)
     ImageDraw.Draw(blurred_outline).text(topTextPosition, topString, font = font, fill = (0, 0, 0))
 
     img = Image.composite(img, shadow_matte, ImageChops.invert(blurred_outline))
