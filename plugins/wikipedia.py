@@ -2,15 +2,12 @@
 Scaevolus 2009"""
 
 import re
-import requests
-from lxml import html
 
 from cloudbot import hook
-from cloudbot.util import formatting
+from cloudbot.util import http, formatting
 
 api_prefix = "http://en.wikipedia.org/w/api.php"
 search_url = api_prefix + "?action=opensearch&format=xml"
-random_url = api_prefix + "?action=query&format=xml&list=random&rnlimit=1&rnnamespace=0"
 
 paren_re = re.compile('\s*\(.*\)$')
 
@@ -19,20 +16,14 @@ paren_re = re.compile('\s*\(.*\)$')
 def wiki(text):
     """wiki <phrase> -- Gets first sentence of Wikipedia article on <phrase>."""
 
-    try:
-        request = requests.get(search_url, params={'search': text.strip()})
-        request.raise_for_status()
-    except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
-        return "Could not get Wikipedia page: {}".format(e)
-
-    x = html.fromstring(request.text)
+    x = http.get_xml(search_url, search=text)
 
     ns = '{http://opensearch.org/searchsuggest2}'
     items = x.findall(ns + 'Section/' + ns + 'Item')
 
     if not items:
         if x.find('error') is not None:
-            return 'Could not get Wikipedia page: %(code)s: %(info)s' % x.find('error').attrib
+            return 'error: %(code)s: %(info)s' % x.find('error').attrib
         else:
             return 'No results found.'
 
@@ -54,4 +45,4 @@ def wiki(text):
 
     desc = formatting.truncate_str(desc, 200)
 
-    return '{} :: {}'.format(desc, requests.utils.quote(url, ':/'))
+    return '{} :: {}'.format(desc, http.quote(url, ':/'))
